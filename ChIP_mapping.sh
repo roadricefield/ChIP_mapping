@@ -24,7 +24,7 @@ reverse_fq="XXX.fastq.gz"
 # trimming adapters
 java -jar trimmomatic-0.39.jar PE \
 -threads ${nthreads} \
--phred33 ${merged} ${trimmed} \
+-phred33 \
 ${forward_fq} ${reverse_fq} \
 ${dout}/${dname}_forward_paired.fq.gz ${dout}/${dname}_forward_unpaired.fq.gz \
 ${dout}/${dname}_reverse_paired.fq.gz ${dout}/${dname}_reverse_unpaired.fq.gz \
@@ -32,16 +32,14 @@ ILLUMINACLIP:${adapter}:2:30:10 LEADING:30 TRAILING:30 SLIDINGWINDOW:4:15 MINLEN
 
 
 # quality check
-fastqc --threads ${nthreads} --nogroup -o ${dout} ${dout}/${dname}_forward_paired.fq.gz
+fastqc --threads ${nthreads} --nogroup -o ${dout} ${dout}/${dname}_forward_paired.fq
 
-fastqc --threads ${nthreads} --nogroup -o ${dout} ${dout}/${dname}_reverse_paired.fq.gz
+fastqc --threads ${nthreads} --nogroup -o ${dout} ${dout}/${dname}_reverse_paired.fq
 
 
 # mapping using Bowtie
-gunzip ${dout}/${dname}_forward_paired.fq.gz
-gunzip ${dout}/${dname}_reverse_paired.fq.gz
 
-bowtie -S -p 4 ${index} -1 ${dout}/${dname}_forward_paired.fq -2 ${dout}/${dname}_reverse_paired.fq ${dout}/${dname}.sam
+bowtie -S --best -p 4 ${index} -1 ${dout}/${dname}_forward_paired.fq -2 ${dout}/${dname}_reverse_paired.fq ${dout}/${dname}.sam
 
 
 # sorting
