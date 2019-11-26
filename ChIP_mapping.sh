@@ -46,9 +46,9 @@ bowtie -S --best -p 4 ${index} -1 ${dout}/${dname}_forward_paired.fq -2 ${dout}/
 samtools view -b -o ${dout}/${dname}.bam ${dout}/${dname}.sam
 samtools sort ${dout}/${dname}.bam -o ${dout}/${dname}_sorted.bam
 
-
+# use only mapped reads
 samtools view -@ 8 -b -F 4 ${dout}/${dname}_sorted.bam > ${dout}/${dname}_tmp.bam
-
+# dupulicate removal
 java -jar picard.jar MarkDuplicates \
 I=${dout}/${dname}_tmp.bam \
 O=${dout}/${dname}_rm_dups.bam \ #This is your final processed file
