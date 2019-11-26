@@ -48,6 +48,7 @@ samtools sort ${dout}/${dname}.bam -o ${dout}/${dname}_sorted.bam
 
 # use only mapped reads
 samtools view -@ 8 -b -F 4 ${dout}/${dname}_sorted.bam > ${dout}/${dname}_tmp.bam
+
 # dupulicate removal
 java -jar picard.jar MarkDuplicates \
 I=${dout}/${dname}_tmp.bam \
