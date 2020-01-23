@@ -26,8 +26,8 @@ java -jar trimmomatic-0.39.jar PE \
 -threads ${nthreads} \
 -phred33 \
 ${forward_fq} ${reverse_fq} \
-${dout}/${dname}_forward_paired.fq.gz ${dout}/${dname}_forward_unpaired.fq.gz \
-${dout}/${dname}_reverse_paired.fq.gz ${dout}/${dname}_reverse_unpaired.fq.gz \
+${dout}/${dname}_forward_paired.fq.gz ${dout}/${dname}_forward_unpaired.fq \
+${dout}/${dname}_reverse_paired.fq.gz ${dout}/${dname}_reverse_unpaired.fq \
 ILLUMINACLIP:${adapter}:2:30:10 LEADING:30 TRAILING:30 SLIDINGWINDOW:4:15 MINLEN:30 
 
 
